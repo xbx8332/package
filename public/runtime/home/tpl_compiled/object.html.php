@@ -1,0 +1,371 @@
+<head>
+	<style>
+        .table-tr-one{
+            background-color:#edf7ff;
+            font-size: 15px;
+        }
+        .table-tr-two{
+             background-color: #d1e7f7;
+             font-size: 15px;
+        }
+        .text-orange{
+            color:#e49607;
+        } 
+       .btn-red{
+       padding: 10px 50px;
+    margin-right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #f05244;
+    background-color: #f05244;
+    color: #fff;
+    border-radius: 5px;
+       }
+        body{
+            background:white;
+        }
+        .row-1{
+            background:#fffbfb;
+        }
+        .ul-hen>li{
+        float:left;
+        border:1px solid #f05244;
+        padding:15px 10px;
+        margin-left:10px;
+        border-radius:10px;
+        color:#f05244;
+        font-size:20px;
+        font-weight:bold;
+        }
+        span.counter {display:block;  font-size:50px; font-family:'Pacifico';color:#f05244;}
+    </style>
+    <!--echarts -->      
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PSFy3jtjuMs55uACdrtdW1nkLTO0GPFd"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+	<!--end echarts-->
+	
+</head>
+
+
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->  
+
+    <!-- Body main wrapper start -->
+    
+    <?php echo $this->fetch('head.html'); ?>
+	
+		<div style="width:100%;text-align:center;">
+			<img src="/Application/Tpl/images/object.png" />
+		</div>
+			
+		
+        <!-- End page content -->
+        <script>
+	      	//基于准备好的dom，初始化echarts实例		--实时监测区域
+			var dom = document.getElementById("main1");
+			var myChart = echarts.init(dom);
+			var mData1 = [];
+			var sData1 = [];
+			<?php $_from = $this->_var['the_one']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['item']):
+?>
+				mData1.unshift('<?php echo $this->_var['key']; ?>');
+				sData1.unshift('<?php echo $this->_var['item']; ?>');
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			//var sData1 = ["<?php echo $this->_var['point']['4']; ?>","<?php echo $this->_var['point']['3']; ?>","<?php echo $this->_var['point']['2']; ?>","<?php echo $this->_var['point']['1']; ?>","<?php echo $this->_var['point']['0']; ?>"];;
+			optionPoint=setOptionPoint(mData1,sData1);
+			initChartPoint(optionPoint);
+			
+			function setOptionPoint(mData,sData)
+			{
+				optionTrade = {
+					backgroundColor: 'rgba(255,255,255,0)',
+					title: {
+						text: '',
+						textStyle: {
+							fontWeight: 'normal',
+							fontSize: 16,
+							font-weight:'bold',
+							color: '#F1F1F3'
+						},
+						left: '6%'
+					},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							lineStyle: {
+								color: '#57617B'
+							}
+						}
+					},
+					legend: {
+						icon: 'rect',
+						itemWidth: 14,
+						itemHeight: 5,
+						itemGap: 13,
+						data: ['历史年化收益率'],
+						right: '4%',
+						textStyle: {
+							fontSize: 12,
+							color: '#000'
+						}
+					},
+					grid: {
+						show:false,
+						left: '0%',
+						right: '5%',
+						bottom: '0%',
+						containLabel: true
+					},
+					xAxis: [{
+						splitLine:{show: false},
+						type: 'category',
+						axisTick: {
+							show: false
+						},
+						show:false,
+						boundaryGap: false,
+						axisLine: {
+							lineStyle: {
+								color: '#57617B'
+							}
+						},
+						axisLabel: {
+						  
+							textStyle: {
+								fontSize: 14,
+								 color:'#808080'
+							}
+						},
+						data:mData
+					}],
+					yAxis: [{
+						
+						type: 'value',
+						axisTick: {
+							show: false
+						},
+						show:false,
+						axisLine: {
+							lineStyle: {
+								color: '#57617B'
+							}
+						},
+						axisLabel: {
+							margin: 10,
+							textStyle: {
+								fontSize: 14,
+								 color:'#808080'
+							}
+						},
+						splitLine: {
+							show:false,
+							lineStyle: {
+								color: '#57617B'
+							}
+						}
+					}],
+					series: [{
+						name: '历史年化收益率',
+						type: 'line',
+						smooth: true,
+						lineStyle: {
+							normal: {
+								width: 1
+							}
+						},
+						areaStyle: {
+							normal: {
+								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0,
+									color: 'rgba(137, 189, 27, 0.3)'
+								}, {
+									offset: 0.8,
+									color: 'rgba(137, 189, 27, 0)'
+								}], false),
+								shadowColor: 'rgba(0, 0, 0, 0.1)',
+								shadowBlur: 10
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: 'rgb(137,189,27)'
+							}
+						},
+						data: sData
+					} ]
+				
+				}
+				
+				return optionTrade;
+			
+			}
+				
+				
+			//初始化图表
+			function initChartPoint(chartOption)
+			{
+				if (chartOption && typeof chartOption === "object") {
+					myChart.setOption(chartOption, true);
+				}
+			
+			}
+			
+			/*右  */
+			//基于准备好的dom，初始化echarts实例		--实时监测区域
+			var dom1 = document.getElementById("main2");
+			var myChart1 = echarts.init(dom1);
+			var mData2 = [];
+			var sData2 = [];
+			<?php $_from = $this->_var['the_two']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('key', 'item');if (count($_from)):
+    foreach ($_from AS $this->_var['key'] => $this->_var['item']):
+?>
+				mData2.unshift('<?php echo $this->_var['key']; ?>');
+				sData2.unshift('<?php echo $this->_var['item']; ?>');
+			<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+			//var sData1 = ["<?php echo $this->_var['point']['4']; ?>","<?php echo $this->_var['point']['3']; ?>","<?php echo $this->_var['point']['2']; ?>","<?php echo $this->_var['point']['1']; ?>","<?php echo $this->_var['point']['0']; ?>"];;
+			optionPoint1=setOptionPoint1(mData2,sData2);
+			initChartPoint1(optionPoint1);
+			
+			function setOptionPoint1(mData1,sData1)
+			{
+				optionTrade = {
+					backgroundColor: 'rgba(255,255,255,0)',
+					title: {
+						text: '',
+						textStyle: {
+							fontWeight: 'normal',
+							fontSize: 16,
+							color: '#F1F1F3'
+						},
+						left: '6%'
+					},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							lineStyle: {
+								color: '#ff7405'
+							}
+						}
+					},
+					legend: {
+						icon: 'rect',
+						itemWidth: 14,
+						itemHeight: 5,
+						itemGap: 13,
+						data: ['累计收益率'],
+						right: '4%',
+						textStyle: {
+							fontSize: 12,
+							color: '#000'
+						}
+					},
+					grid: {
+						show:false,
+						left: '0%',
+						right: '5%',
+						bottom: '0%',
+						containLabel: true
+					},
+					xAxis: [{
+						splitLine:{show: false},
+						type: 'category',
+						boundaryGap: false,
+						axisLine: {
+							lineStyle: {
+								color: '#ff7405'
+							}
+						},
+						axisLabel: {
+						  
+							textStyle: {
+								fontSize: 14,
+								 color: '#000'
+							}
+						},
+						data:mData1
+					}],
+					yAxis: [{
+						
+						type: 'value',
+						axisTick: {
+							show: false
+						},
+						axisLine: {
+							lineStyle: {
+								color: '#ff7405'
+							}
+						},
+						axisLabel: {
+							margin: 10,
+							textStyle: {
+								fontSize: 14,
+								 color: '#000'
+							}
+						},
+						splitLine: {
+							show:false,
+							lineStyle: {
+								color: '#ff7405'
+							}
+						}
+					}],
+					series: [{
+						name: '累计收益率',
+						type: 'line',
+						smooth: true,
+						lineStyle: {
+							normal: {
+								width: 1
+							}
+						},
+						areaStyle: {
+							normal: {
+								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0,
+									color: 'rgba(255,116,5, 0.3)'
+								}, {
+									offset: 0.8,
+									color: 'rgba(255,116,5, 0)'
+								}], false),
+								shadowColor: 'rgba(0, 0, 0, 0.1)',
+								shadowBlur: 10
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: 'rgb(255,116,5)'
+							}
+						},
+						data: sData1
+					} ]
+				
+				}
+				
+				return optionTrade;
+			
+			}
+				
+				
+			//初始化图表
+			function initChartPoint1(chartOption)
+			{
+				if (chartOption && typeof chartOption === "object") {
+					myChart1.setOption(chartOption, true);
+				}
+			
+			}
+			
+        </script>
+        <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+		<script src="/Application/Tpl/js/jquery.countup.min.js"></script>
+		<script type="text/javascript">
+			$('.counter').countUp();
+		</script>
+<?php echo $this->fetch('footer_v1.html'); ?>       
+

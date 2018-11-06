@@ -1,0 +1,87 @@
+ALTER TABLE `sn_user`
+ADD COLUMN `bankcard`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '银行卡号' AFTER `vip_end_time`;
+
+ALTER TABLE `sn_user`
+ADD COLUMN `bankname`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '开户行名称' AFTER `bankcard`;
+
+
+ALTER TABLE `sn_user_carry`
+ADD COLUMN `user_name`  varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名' AFTER `user_id`;
+
+ALTER TABLE `sn_user_carry`
+MODIFY COLUMN `create_time`  datetime NOT NULL AFTER `bankcard`;
+
+ALTER TABLE `sn_licai_profit`
+ADD COLUMN `licai_name`  varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `profit`;
+ALTER TABLE `sn_licai_profit`
+MODIFY COLUMN `licai_name`  varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' AFTER `profit`;
+
+
+2017-12-19 贷款规则
+CREATE TABLE `sn_licai_rulemsg` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rule_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `rule_msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1:贷款规则 2：贷款资格 3：快速问答',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=gbk;
+
+
+帮助中心
+CREATE TABLE `sn_licai_help` (
+`id`  int NOT NULL AUTO_INCREMENT ,
+`name`  varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' ,
+`bz`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+PRIMARY KEY (`id`),
+UNIQUE INDEX `bb` (`name`) USING BTREE 
+)
+;
+CREATE TABLE `sn_help_wenzhang` (
+`id`  int NOT NULL ,
+`name`  varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' ,
+`is_effect`  tinyint NOT NULL DEFAULT 0 ,
+`wenzhang`  text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,
+`cate_id`  int NOT NULL DEFAULT 0 ,
+PRIMARY KEY (`id`)
+)
+;
+ALTER TABLE `sn_help_wenzhang`
+MODIFY COLUMN `id`  int(11) NOT NULL AUTO_INCREMENT FIRST ;
+
+
+CREATE TABLE `sn_licai_yeb` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `huo_money` decimal(20,6) NOT NULL DEFAULT '0.000000',
+  `user_id` int(11) NOT NULL,
+  `huo_no_money` decimal(20,2) NOT NULL DEFAULT '0.00',
+  `nmc_amount` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '体验金',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=gbk;
+
+充值日志表
+CREATE TABLE `sn_recharge_log` (
+`id`  int NOT NULL AUTO_INCREMENT ,
+`create_time`  datetime NULL ,
+`operation_admin`  varchar(255) NOT NULL COMMENT '操作人员' ,
+`recharge_price`  decimal NOT NULL DEFAULT 0 COMMENT '变动金额' ,
+`user_id`  int NOT NULL COMMENT '充值的会员' ,
+`user_name`  varchar(255) NOT NULL COMMENT '会员名称' ,
+`is_delete`  tinyint(4) NOT NULL DEFAULT 0 COMMENT '0：正常 1：删除' ,
+PRIMARY KEY (`id`)
+)
+;
+提现记录表
+CREATE TABLE `sn_withdraw_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` datetime DEFAULT NULL,
+  `operation_admin` varchar(255) NOT NULL COMMENT '操作人员',
+  `withdraw_price` decimal(10,0) NOT NULL DEFAULT '0' COMMENT '变动金额',
+  `user_id` int(11) NOT NULL COMMENT '提现会员',
+  `user_name` varchar(255) NOT NULL COMMENT '会员名称',
+  `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0：正常 1：删除',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0：待审核 1：通过 2：拒绝',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+
+
+

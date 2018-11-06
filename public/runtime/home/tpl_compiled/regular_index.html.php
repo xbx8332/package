@@ -1,0 +1,408 @@
+<head>
+	<style>
+	
+        .table-tr-one{
+            background-color:#edf7ff;
+            font-size: 15px;
+        }
+        .table-tr-two{
+             background-color: #d1e7f7;
+             font-size: 15px;
+        }
+        .text-orange{
+            color:#e49607;
+        } 
+       .btn-red{
+       padding: 10px 50px;
+    margin-right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #f05244;
+    background-color: #f05244;
+    color: #fff;
+    border-radius: 5px;
+       }
+        body{
+            background:white;
+        }
+        .row-1{
+            background:#fffbfb;
+        }
+        .ul-hen>li{
+        float:left;
+        border:1px solid #f05244;
+        padding:15px 10px;
+        margin-left:10px;
+        border-radius:10px;
+        color:#f05244;
+        font-size:20px;
+        font-weight:bold;
+        }
+        .top{
+        margin-top:15px;
+        
+        }
+        .four_bg{
+        background:#ffffff
+        }
+        .hj{
+       
+        	padding:20px 0;
+        }
+        .rs_top{
+        	padding: 11px 0;
+        }
+        .bord{
+        	border-bottom:1px dashed #ededed;
+        	margin-bottom:5px;
+        }
+        .title{
+        	color:gray;
+        	display:inline-block;
+        	font-family:'黑体'
+        }
+        .detxt {
+        	display:inline-block;
+        	color:#675f5f;
+        	font-weight:bold;
+        	font-family:'黑体';
+        	margin-left:10px;
+        }
+        .unit{
+        	height:50px;
+        	line-height:50px;
+        }
+        a:hover{
+        	background-color:#EEB92C !important;color:white !important;
+        }
+ 		.ibox-footer{
+ 			padding:0 !important;
+ 		}
+ 		.quick_ps{
+ 			font-size:16px;width:100%;background-color:#fff;color:#EEB92C
+ 		}
+    </style>
+    <link rel="stylesheet" href="/Application/Tpl/css/style.css">
+   	<link rel="stylesheet" href="/Application/Tpl/swiper/swiper.min.css">
+
+	<script src="/Application/Tpl/swiper/swiper.min.js"></script>
+	<link href="/Application/Tpl/css/page_style.css" rel="stylesheet" type="text/css">
+	<script>
+		var buy_url = "<?php
+echo parse_url_tag("u:index|object#buy_confirm|"."".""); 
+?>";
+		var user = "<?php echo $this->_var['user']['id']; ?>";
+	</script>
+</head>
+
+
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->  
+
+    <!-- Body main wrapper start -->
+    
+  <?php echo $this->fetch('head.html'); ?>
+  <!--layer弹出层  -->
+	<!--  <link href="https://cdn.bootcss.com/layer/3.1.0/theme/default/layer.css" rel="stylesheet"> 
+	<script type="text/javascript" src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script> -->
+	<!--layer弹出层  -->
+	<!-- <script type="text/javascript" src="/Application/Tpl/js/regular.js"></script> -->
+  	<script>
+  	$(function(){
+
+  		$(".purchase").click(function(){
+  					
+  					var money = $("input[name='money']").val();
+  					var licai_id = $("input[name='licai_id']").val();
+  					var start = $("input[name='start']").val();
+  					var url = buy_url+"&id="+licai_id+"&money="+money;
+  					
+  					if(!user)
+  					{
+  						layer.msg('亲！请登录后再购买！',{icon:3,time:1000});
+  						return false;
+  					}
+  					
+  					if(!money)
+  					{
+  						layer.msg('亲！请输入买入金额！',{icon:3,time:1000});
+  						return false;
+  					}
+  					if(parseFloat(money)<parseFloat(start))
+  					{
+  						layer.msg('亲！买入金额不能低于起购金额',{icon:3,time:1000});
+  						return false;
+  					}
+  					console.log(url);
+  					layer.open({
+  						  type: 2,
+  						  title: '买入确认',
+  						  shadeClose: true,
+  						  fix: true, //不固定
+  						  shade: 0.5,
+  						  offset: ['70px', '35%'],
+  						  area: ['450px', '450px'],
+  						  content: [url,'no']
+  						}); 
+  					
+  				})
+  		
+  	})
+  </script>
+  <body>
+     
+    <div class="container" style="margin-top:15px;">
+	   	<div class="row " >
+	   		<div class="col-lg-12 "  >
+	   			<div class="container-fluid four_bg">
+	   				<div class="row " >
+	   					<div class="col-lg-3 hj"  >
+				   			<div align="center" >
+				   				<img alt="" src="/Application/Tpl/images/example/icon_security.png">
+				   			</div>
+				   			<p style="text-align:center;font-weight:bold;margin-top:16px">投资安全</p>
+				   			<p style="text-align:center;font-size:12px;">安全优质资产,智能分配投资</p>
+				           </div>
+				           <div class="col-lg-3 hj">
+				           	<div align="center" >
+				   				<img alt="" src="/Application/Tpl/images/example/icon_high.png">
+				   			</div>
+				   			<p style="text-align:center;font-weight:bold;margin-top:16px">超高年化</p>
+				   			<p style="text-align:center;font-size:12px">银行定制利率的五倍,超高收益</p>
+				           </div>
+				           <div class="col-lg-3 hj">
+				           	<div align="center" >
+				   				<img alt="" src="/Application/Tpl/images/example/icon_flex.png">
+				   			</div>
+				   			<p style="text-align:center;font-weight:bold;margin-top:16px">灵活易用</p>
+				   			<p style="text-align:center;font-size:12px">长短期自由选,100元即可投资</p>
+				           </div>
+				           <div class="col-lg-3 hj" >
+				           	<div align="center" >
+				   				<img alt="" src="/Application/Tpl/images/example/icon_flex.png">
+				   			</div>
+				   			<p style="text-align:center;font-weight:bold;margin-top:16px">智能配置</p>
+				   			<p style="text-align:center;font-size:12px">智能配置最有资产</p>
+				           </div>
+	   				</div>
+	   			</div>	
+	   		</div>
+          <!--  <div class="col-lg-3 hj"  >
+   			<div align="center" >
+   				<img alt="" src="/Application/Tpl/images/example/icon_security.png">
+   			</div>
+   			<p style="text-align:center;font-weight:bold;margin-top:5px">投资安全</p>
+   			<p style="text-align:center">安全优质资产,智能分配投资</p>
+           </div>
+           <div class="col-lg-3 hj">
+           	<div align="center" >
+   				<img alt="" src="/Application/Tpl/images/example/icon_high.png">
+   			</div>
+   			<p style="text-align:center;font-weight:bold;margin-top:5px">超高年化</p>
+   			<p style="text-align:center">银行定制利率的五倍,超高收益</p>
+           </div>
+           <div class="col-lg-3 hj">
+           	<div align="center" >
+   				<img alt="" src="/Application/Tpl/images/example/icon_flex.png">
+   			</div>
+   			<p style="text-align:center;font-weight:bold;margin-top:5px">灵活易用</p>
+   			<p style="text-align:center">长短期自由选,100元即可投资</p>
+           </div>
+           <div class="col-lg-3 hj" >
+           	<div align="center" >
+   				<img alt="" src="/Application/Tpl/images/example/icon_flex.png">
+   			</div>
+   			<p style="text-align:center;font-weight:bold;margin-top:5px">智能配置</p>
+   			<p style="text-align:center">智能配置最有资产</p>
+           </div> -->
+	   	</div>
+    </div>
+	          
+	<div class="container top">
+    	<div class="row">
+    	<?php $_from = $this->_var['licai_ding']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }; $this->push_vars('', 'list');if (count($_from)):
+    foreach ($_from AS $this->_var['list']):
+?>
+    	<div class="col-lg-6">
+	    		<div class="ibox float-e-margins" >
+                    <div class="ibox-title">
+                        <h3 style="margin:0px;color:#363636;width:70%;display:inline-block"><?php echo $this->_var['list']['name']; ?> </h3>
+                        <div class="ibox-tools" style="width:25%;height:18px;display:inline-block">
+                          
+                        	<p style="color:#8c8c8c;font-size:16px;text-align:center;">截止<?php echo $this->_var['list']['end_buy_date']; ?></p>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="container-fluid">
+                        	<div class="row">
+                        		<div class="col-lg-4 rs_top">
+                        			<h6 style="text-align:center;color:gray;font-size:15px">预计收益率</h6>
+                        			<p><h1 style="text-align:center;font-weight:bold;font-size:30px"><?php if ($this->_var['list']['history']['rate']): ?><?php echo $this->_var['list']['history']['rate']; ?><?php else: ?><?php echo $this->_var['list']['scope']; ?><?php endif; ?>%</h2></p>
+                        		</div>
+                        		<div class="col-lg-4 rs_top">
+                        		<h6 style="text-align:center;color:gray;font-size:15px">最低起购金额</h6>
+                        			<p><h1 style="text-align:center;font-weight:bold;font-size:30px"><?php echo $this->_var['list']['min_money']; ?></h2></p>
+                        		</div>
+                        		<div class="col-lg-4 rs_top">
+                        		<h6 style="text-align:center;color:gray;font-size:15px">投资风险</h6>
+                        			<p><h1 style="text-align:center;font-weight:bold;font-size:30px"><?php if ($this->_var['list']['risk_rank'] == 0): ?>低<?php elseif ($this->_var['list']['risk_rank'] == 1): ?>中<?php else: ?>高<?php endif; ?></h2></p>
+                        		</div>
+                        	</div>
+                        </div>
+                    </div>
+                    <div class="ibox-footer">
+                      <a href="<?php
+echo parse_url_tag("u:index|object#regular|"."id=".$this->_var['list']['id']."".""); 
+?>"   class="btn quick_ps">立即购买</a>
+                    </div>
+                </div>
+	    	</div>
+    		<?php endforeach; endif; unset($_from); ?><?php $this->pop_vars();; ?>
+	    	
+	    	
+    	
+    	</div>
+    </div>
+   
+    
+    <!--  <div style="width:100%;text-align:center;">
+    	<img src="/Application/Tpl/images/regular.png" />
+    </div>  -->
+    
+		
+        <!-- Start page content -->
+        <!-- <section id="page-content" class="page-wrapper pt-10" style="display:none;">
+            <div class="container">
+                <div class="row" style="padding:10px;">
+                 	<div style="display:inline-block;width:60%;">
+                 		<span>总金额（元）</span>
+                 	</div>
+                 	<div style="display:inline-block;float:right;">
+                 		<span>近期资产年化6.6%</span>
+                 	</div>
+                </div> 
+                <div class="row" style="padding:10px;">
+                 	<div style="display:inline-block;width:70%;">
+                 		<ul class="ul-hen">
+                 			<li>1</li>
+                 			<li>0</li>
+                 			<li>3</li>
+                 			<li style="border:none;padding-top:15px;">·</li>
+                 			<li>4</li>
+                 			<li>5</li>
+                 			<li>6</li>
+                 			<li>7</li>
+                 			<li>8</li>
+                 			<li>9</li>
+                 		</ul>
+                 	</div>
+                 	<div style="display:inline-block;float:right;">
+                 		<button class="btn btn-red">转入</button>
+                 		<button class="btn bn-white-red">转出</button>
+                 	</div>
+                </div> 
+                <div class="row" style="padding:20px 0px;">
+                 	<div style="display:inline-block;width:20%;">
+                 		<p>目标年化</p>
+                 		<p>6.5%</p>
+                 	</div>
+                 	<div style="display:inline-block;width:20%;">
+                 		<p>历史年化收益</p>
+                 		<p>6.5%</p>
+                 	</div>
+                 	<div style="display:inline-block;width:20%;">
+                 		<button class="btn btn-danger">使用加息券</button>
+                 	</div>
+                 	<div style="display:inline-block;width:20%;">
+                 		<p>当前体验金（元）</p>
+                 		<p>100.00</p>
+                 	</div>
+                 	<div style="display:inline-block;width:15%;">
+                 		<p>累计收益（元）</p>
+                 		<p>3.33</p>
+                 	</div>
+                </div> 
+            </div>
+        </section> -->
+        <!-- End page content -->
+        
+         <!--弹出层  -->
+     <div class="container top" id="showModal" style="display:none"  >
+    	<div class="row">
+	    	<div class="col-lg-4">
+	    		<div style="width:100%;">
+	    			<div class="ibox float-e-margins" >
+                    <div class="ibox-title">
+                        <h6 style="font-size:13px;font-family:'黑体';font-weight:bold">买入确认</h6>
+                        <div class="ibox-tools">
+                           
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="container-fluid">
+                        	<div class="row">
+                        		<form action="">
+	                        		<div class="col-lg-12 bord">
+	                        			<div class="unit">
+										  <span class="title" >投资项目</span>
+										  <p class="detxt"  >活期理财</p>
+										</div>
+	                        		</div>
+	                        		<div class="col-lg-12 bord">
+	                        			<div class="unit">
+										  <span class="title" >投资金额</span>
+										  <p class="detxt"  ><em class="demoney">1000.00</em>元</p>
+										</div>
+	                        		</div>
+	                        		<div class="col-lg-12 bord" >
+	                        			<div class="unit">
+										  <span class="title" >体验金&nbsp;&nbsp;</span>
+										  <p class="detxt"  ><em class="demoney">1000.00</em>元</p>
+										  <p style="display:inline-block;float:right"><button type="button" style="margin-top:10px;width:80px;border-radius:15px; !important" class="btn  btn-sm ">使用</button></p>
+										</div>
+	                        		</div>
+	                        		<div class="col-lg-12 bord" >
+	                        			<div class="unit">
+										  <span class="title" >支付密码</span>
+										  <p class="detxt"  >
+										  	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="输入支付密码">
+										  </p>
+										  
+										</div>
+	                        		</div>
+	                        		<div class="col-lg-6">
+	                        			<button type="button" style="color:rgb(238,185,44);border:1px solid rgb(238,185,44);background:rgb(255,255,255); !important" class="btn btn-default  btn-lg btn-block">取消买入</button>
+	                        		</div>
+	                        		<div class="col-lg-6">
+	                        			<button type="button" style="background:rgb(238,185,44) !important" class="btn btn-warning btn-lg btn-block">确定买入</button>
+	                        		</div>
+                        		</form>
+                        	</div>
+                        </div>
+                    </div>
+                   
+                </div>
+	    		</div>
+	    	</div>
+    	
+    	</div>
+    </div>
+      <?php echo $this->fetch('footer_v1.html'); ?>    
+   <script> 
+		var mySwiper = new Swiper('.swiper-container',{
+		pagination: '.my-pagination-ul',
+		paginationClickable: true,
+		paginationBulletRender: function (index, className) {
+		switch (index) {
+		  case 0: name='产品详情';break;
+		  case 1: name='产品规则';break;
+		
+		  default: name='';
+		}
+		      return '<li class="' + className + '">' + name + '</li>';
+		  }
+		})
+	</script>
+   
+

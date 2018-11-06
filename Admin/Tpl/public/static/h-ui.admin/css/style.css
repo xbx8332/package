@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* 你自己的样式 */
+
+.csq a,  
+            .csq span {  
+                display: inline-block;  
+                padding: 2px 5px;  
+                margin: 0 1px;  
+                border: 1px solid #f0f0f0;  
+                -webkit-border-radius: 3px;  
+                -moz-border-radius: 3px;  
+                border-radius: 3px;  
+            }  
+              
+            .csq a,  
+            .csq li {  
+                display: inline-block;  
+                list-style: none;  
+                text-decoration: none;  
+                color: #58A0D3;  
+            }  
+              
+            .csq a.first,  
+            .csq a.prev,  
+            .csq a.next,  
+            .csq a.end {  
+                margin: 0;  
+            }  
+              
+            .csq a:hover {  
+                border-color: #50A8E6;  
+            }  
+              
+            .csq span.current {  
+                background: #50A8E6;  
+                color: #FFF;  
+                font-weight: 700;  
+                border-color: #50A8E6;  
+            }  
